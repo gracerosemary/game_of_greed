@@ -50,6 +50,12 @@ class GameLogic:
 
     @staticmethod
     def roll_dice(dice: int):
+        """Rolls random dice.
+        Args:
+            dice (int): integers that represent the number of dice to roll
+        Returns:
+            int: roll nth number of dice and returns 1-6 random
+        """
         if type(dice) is  not int:
             raise TypeError("Dice must be a number")
         elif (dice <= 0 or dice > 6):
@@ -57,23 +63,33 @@ class GameLogic:
         return tuple(random.randint(1,6) for _ in range(dice))
 
 class Banker:
+    """Class Banker
+    """
     def __init__(self):
         self.shelved = 0
         self.balance = 0
     
     # roll
     def shelf(self, shelf_points: int):
-        # takes in var from calculate_score and adds it to def__init__
+        """[takes in var from calculate_score and adds it to def__init__]
+        Args:
+            shelf_points (int): [int]
+        """
         self.shelved += shelf_points
 
     # balance
     def bank(self):
+        """
+        Moves temporary (shelved) points to bank (balance).
+        """
         self.balance += self.shelved
         shelf = self.shelved
         self.clear_shelf()
         return shelf
     
     def clear_shelf(self):
+        """clears shelf
+        """
         self.shelved = 0
 
 
