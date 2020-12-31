@@ -1,7 +1,8 @@
 # Game of Greed
+PR link: https://github.com/gracerosemary/game_of_greed/pull/1
 
-**Author**: Grace Choi, Sam Clark, Matthew Holder, Audrena Vacirca
-**Version**: 1.0.2
+**Author**: Grace Choi, Sam Clark, Matthew Holder, Audrena Vacirca  
+**Version**: 1.0.2  
 
 ## Overview
 Roll some dice, get some scores, keep track of the scores.
