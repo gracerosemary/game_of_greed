@@ -33,13 +33,13 @@ leftover_ones - 1s not used in set of 3 (or greater) should return correct score
 leftover_fives - 5s not used in set of 3 (or greater) should return correct score
 
 #### Testing - Banker
-*shelf*
-should properly track unbanked points
-*bank*
-should properly add unbanked points to total and return the deposited amount
-*clear_shelf*
-should remove any unbanked points, resetting to zero.
-should not affect previously banked points
+*shelf*  
+should properly track unbanked points  
+*bank*  
+should properly add unbanked points to total and return the deposited amount  
+*clear_shelf*  
+should remove any unbanked points, resetting to zero.  
+should not affect previously banked points  
 
 ## Change Log
 12-29-2020 6:30pm - Started lab, divided 1 method per group member. Completed 4 methods.
