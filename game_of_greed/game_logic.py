@@ -8,7 +8,11 @@ class GameLogic:
 
     @staticmethod
     def roll_dice(dice: int):
-        pass
+        if type(roll_dice) is  not int:
+            raise TypeError("Dice must be a number")
+        elif (dice <= 0 or dice > 6):
+            raise ValueError("Dice number must be between 1-6")
+        return tuple(random.randint(1,6) for _ in range(dice))
 
 class Banker:
 
@@ -23,3 +27,14 @@ class Banker:
 
     def clear_shelf(self):
         pass
+
+
+if __name__ == "__main__":
+    def roll_dice(dice: int):
+        if type(dice) is  not int:
+            raise TypeError("Dice must be a number")
+
+        elif (dice <= 0 or dice > 6):
+            raise ValueError("Dice number must be between 1-6")
+
+        return tuple(random.randint(1,6) for _ in range(dice))
