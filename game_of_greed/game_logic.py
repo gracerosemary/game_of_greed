@@ -60,13 +60,19 @@ class GameLogic:
 class Banker:
     def __init__(self):
         self.roll = 0
+        self.balance = 0
     
+    # roll
     def shelf(self, shelf_points: int):
         # takes in var from calculate_score and adds it to def__init__
         self.roll += shelf_points
-    
-    def bank(self, bank_points: int):
-        pass
+
+    # balance
+    def bank(self):
+        self.balance += self.roll
+        shelf = self.shelved
+        self.clear_shelf()
+        return shelf
     
     def clear_shelf(self):
         self.roll = 0
