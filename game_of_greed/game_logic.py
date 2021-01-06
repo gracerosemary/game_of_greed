@@ -15,7 +15,7 @@ class GameLogic:
             int: roll's score
         """
         counter = Counter(dice)
-        print(counter)
+        # print(counter)
 
         if len(dice) > 6:
             raise Exception("Please pick a number from 1-6")

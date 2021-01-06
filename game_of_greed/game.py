@@ -1,4 +1,4 @@
-from game_of_greed.game_logic import GameLogic, Banker
+from game_logic import GameLogic, Banker
 
 class Game:
     """Class for Game of Greed application
@@ -32,10 +32,29 @@ class Game:
 
     def decline_game(self):
         print("OK. Maybe another time")
+    
+    def closing(self, score):
+        print(f"Thanks for playing. You earned {score} points")
 
     def start_game(self):
-        # TODO: um, the game
-        pass
+        removed = 0
+        roll = GameLogic.roll_dice(6)
+        print(f"""
+Starting round 1
+Rolling 6 dice...
+*** {roll[0]} {roll[1]} {roll[2]} {roll[3]} {roll[4]} {roll[5]} ***
+        """)
+        save = input("""Enter dice to keep, or (q)uit:
+> """)
+        if save == 'q':
+            self.closing()
+        else:
+            print(save)
+            tup = tuple([int(save)])
+            score = GameLogic.calculate_score(tup)
+            print(tup)
+            removed += len(tup)
+            print(f'You have {score} unbanked points and {6 - removed} dice remaining')
 
 
 if __name__ == "__main__":
