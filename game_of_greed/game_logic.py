@@ -34,7 +34,7 @@ class GameLogic:
             score += 1500
             return score
         elif len(counter.most_common()) == 6:
-            return 100000  
+            return 10000
 
         for key, value in scores.items():
             counts = counter[key]
