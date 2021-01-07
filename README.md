@@ -1,5 +1,5 @@
 # Game of Greed
-PR link: https://github.com/gracerosemary/game_of_greed/pull/1
+PR link: https://github.com/gracerosemary/game_of_greed/pull/2#issue-549981903
 
 **Author**: Grace Choi, Sam Clark, Matthew Holder, Audrena Vacirca  
 **Version**: 1.0.2  
@@ -13,11 +13,14 @@ shelf() - shelves score
 bank() - banks score
 clear_shelf() - clears shelf
 
-## Tests
-#### Testing - Roll Dice
-When rolling 1 to 6 dice ensure…
-- A sequence of correct length is returned
-- Each item in sequence is an integer with value between 1 and 6
+## Feature Tasks
+Application should implement all features from previous version
+Application should simulate rolling between 1 and 6 dice
+Application should allow user to set aside dice each roll
+Application should allow “banking” current score or rolling again.
+Application should keep track of total score
+Application should keep track of current round
+Application should have automated tests to ensure proper operation
 
 #### Testing - Calculate Score
 zilch - non scoring roll should return 0
