@@ -83,9 +83,8 @@ class Banker:
         Moves temporary (shelved) points to bank (balance).
         """
         self.balance += self.shelved
-        shelf = self.shelved
-        self.clear_shelf()
-        return shelf
+        self.shelved = 0
+        return self.balance
     
     def clear_shelf(self):
         """clears shelf
