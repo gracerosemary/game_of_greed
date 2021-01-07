@@ -15,7 +15,7 @@ class GameLogic:
             int: roll's score
         """
         counter = Counter(dice)
-        print(counter)
+        # print(counter)
 
         if len(dice) > 6:
             raise Exception("Please pick a number from 1-6")
@@ -34,7 +34,7 @@ class GameLogic:
             score += 1500
             return score
         elif len(counter.most_common()) == 6:
-            return 100000  
+            return 10000
 
         for key, value in scores.items():
             counts = counter[key]
@@ -83,9 +83,8 @@ class Banker:
         Moves temporary (shelved) points to bank (balance).
         """
         self.balance += self.shelved
-        shelf = self.shelved
-        self.clear_shelf()
-        return shelf
+        self.shelved = 0
+        return self.balance
     
     def clear_shelf(self):
         """clears shelf
