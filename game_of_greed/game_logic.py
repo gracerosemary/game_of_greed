@@ -48,6 +48,22 @@ class GameLogic:
                 score += single
         return score
 
+    def get_scorers(test_input):
+        # tup = tuple([int(i) for i in test_input])
+        scores_available = GameLogic.calculate_score(test_input)
+        if scores_available == 0:
+            return tuple()
+        list = []
+        for i in range(len(test_input)):
+            print(test_input[i])
+            if test_input[i] == 1 or test_input[i] == 5:
+                list.append(test_input[i])
+        print(list)
+        return list
+
+
+
+
     @staticmethod
     def roll_dice(dice: int):
         """Rolls random dice.
@@ -93,5 +109,5 @@ class Banker:
 
 
 if __name__ == "__main__":
-    glogic = GameLogic()
-    glogic.calculate_score((5, 5, 5))
+
+    GameLogic.get_scorers((1, 2))
