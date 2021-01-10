@@ -1,5 +1,5 @@
-from game_of_greed.game_logic import GameLogic, Banker
-# from game_logic import GameLogic, Banker
+# from game_of_greed.game_logic import GameLogic, Banker
+from game_logic import GameLogic, Banker
 
 class Game:
     """Class for Game of Greed application
@@ -45,13 +45,27 @@ class Game:
         self.round_num += 1
         self.start_round(self.round_num)
 
-    def start_round(self, round_num):
+#     def rolling_dice(self, number):
+#         roll = self._roller(number)
+#         for i in roll:
+#             str_roll = ", ".join(str(i))
+#             return str_roll
+#         print(f"""Rolling {number} dice...
+# *** {str_roll} ***""")
+
+    def start_round(self, round_num, number= 6):
         removed = 0
         remaining = 6
-        # roll = self._roller(6)
-        print(f"""Starting round {self.round_num}
-Rolling {remaining} dice...
-*** {roll_dice(remaining)} ***""")
+        roll = self._roller(number) 
+        print(f"""Starting round {self.round_num}""")
+        str_roll = ""
+        for i in roll:
+            str_roll = "".join(str(roll))
+            break
+        print("roll", roll)
+        print("str roll", str_roll)
+        print(f"""Rolling {number} dice...""")
+        print(f"""*** {str_roll} ***""")
         current_roll = GameLogic.calculate_score(roll)
         if current_roll == 0:
             print('Farkle!')
@@ -74,7 +88,6 @@ Rolling {remaining} dice...
                 print(f'You have {self.banker.shelved} unbanked points and {6 - removed} dice remaining')
                 roll_again = input("""(r)oll again, (b)ank your points or (q)uit:
 > """)
-
                 if roll_again == 'r':
                     if current_roll == 0:
                         print('Farkle!')
