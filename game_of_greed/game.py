@@ -1,4 +1,5 @@
 from game_of_greed.game_logic import GameLogic, Banker
+# from game_logic import GameLogic, Banker
 
 class Game:
     """Class for Game of Greed application
@@ -7,6 +8,10 @@ class Game:
     def __init__(self, num_rounds=20):
         self.banker = Banker()
         self.num_rounds = num_rounds
+        
+
+    
+
 
     def play(self, roller=None):
         """Entry point for playing (or declining) a game
@@ -43,10 +48,10 @@ class Game:
     def start_round(self, round_num):
         removed = 0
         remaining = 6
-        roll = self._roller(6)
+        # roll = self._roller(6)
         print(f"""Starting round {self.round_num}
 Rolling {remaining} dice...
-*** {roll[0]} {roll[1]} {roll[2]} {roll[3]} {roll[4]} {roll[5]} ***""")
+*** {roll_dice(remaining)} ***""")
         current_roll = GameLogic.calculate_score(roll)
         if current_roll == 0:
             print('Farkle!')
