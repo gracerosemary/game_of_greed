@@ -61,9 +61,6 @@ class GameLogic:
         print(list)
         return list
 
-
-
-
     @staticmethod
     def roll_dice(dice: int):
         """Rolls random dice.
