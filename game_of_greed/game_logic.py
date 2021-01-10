@@ -70,9 +70,9 @@ class GameLogic:
             int: roll nth number of dice and returns 1-6 random
         """
         if type(dice) is  not int:
-            raise TypeError("Dice must be a number")
+            TypeError("Dice must be a number")
         elif (dice <= 0 or dice > 6):
-            raise ValueError("Dice number must be between 1-6")
+            ValueError("Dice number must be between 1-6")
         return tuple(random.randint(1,6) for _ in range(dice))
 
 class Banker:

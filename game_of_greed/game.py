@@ -9,10 +9,6 @@ class Game:
         self.banker = Banker()
         self.num_rounds = num_rounds
         
-
-    
-
-
     def play(self, roller=None):
         """Entry point for playing (or declining) a game
         Args:
@@ -22,7 +18,7 @@ class Game:
 
         self.round_num = 0
 
-        self._roller = roller or GameLogic.roll_dice
+        self._roller = roller or GameLogic.roll_dice(6)
 
         print("Welcome to Game of Greed")
 
@@ -45,13 +41,14 @@ class Game:
         self.round_num += 1
         self.start_round(self.round_num)
 
-    def start_round(self, round_num):
+    def start_round(self, round_num, number=6):
         removed = 0
         remaining = 6
-        # roll = self._roller(6)
+        roll = self._roller(number)
+        new_roll = ' '.join((str(i) for i in roll))
         print(f"""Starting round {self.round_num}
 Rolling {remaining} dice...
-*** {roll_dice(remaining)} ***""")
+*** {new_roll} ***""")
         current_roll = GameLogic.calculate_score(roll)
         if current_roll == 0:
             print('Farkle!')
