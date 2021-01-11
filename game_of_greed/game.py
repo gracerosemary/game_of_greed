@@ -1,3 +1,6 @@
+import os
+import sys
+# from collections import Counter
 from game_of_greed.game_logic import GameLogic, Banker
 # from game_logic import GameLogic, Banker
 
@@ -18,7 +21,7 @@ class Game:
 
         self.round_num = 0
 
-        self._roller = roller or GameLogic.roll_dice(6)
+        self._roller = roller or GameLogic.roll_dice
 
         print("Welcome to Game of Greed")
 
@@ -36,74 +39,93 @@ class Game:
     
     def quit_game(self, score=0):
         print(f"Thanks for playing. You earned {self.banker.balance} points")
-
+        sys.exit()
+    
     def start_game(self):
         self.round_num += 1
         self.start_round(self.round_num)
 
     def start_round(self, round_num, number=6):
-        removed = 0
-        remaining = 6
-        roll = self._roller(number)
-        new_roll = ' '.join((str(i) for i in roll))
-        print(f"""Starting round {self.round_num}
-Rolling {remaining} dice...
-*** {new_roll} ***""")
-        current_roll = GameLogic.calculate_score(roll)
-        if current_roll == 0:
-            print('Farkle!')
-        else:
-            # remaining = remaining - removed
-            self.handle_selection(removed, current_roll, remaining)
-    
-    def handle_selection(self, removed, current_roll, remaining):
-        save = input("""Enter dice to keep, or (q)uit:
-> """)
-        if save == 'q':
-            self.quit_game()
-            exit()
-        else:
-            tup = tuple([int(i) for i in save])
-            score = GameLogic.calculate_score(tup)
-            self.banker.shelf(score)
-            removed += len(tup)
-            while removed != 0:
-                print(f'You have {self.banker.shelved} unbanked points and {6 - removed} dice remaining')
-                roll_again = input("""(r)oll again, (b)ank your points or (q)uit:
-> """)
+        print(f"Starting round {round_num}")
+        current_round_score = 0
+        while True:
+            roll = self.rolling_dice(number)
+            if self.farkle(roll):
+                self.start_round
+                # break
+            selection = self.handle_selection(roll)
+            print("(r)oll again, (b)ank your points or (q)uit:")
+            response = input("> ")
+            if response == "q":
+                self.quit_game()
+                return
+            elif response == "b":
+                current_round_score = self.banker.bank()
+                print(f"You banked {str(current_round_score)} points in round {round_num}")
+                print(f'Total score is {self.banker.balance} points')
+                self.start_game()
+                # break
+            else:
+                number -= len(selection)
+                if number == 0:
+                    number = 6
 
-                if roll_again == 'r':
-                    if current_roll == 0:
-                        print('Farkle!')
-                        self.banker.shelved = 0
-                        self.round_num += 1
-                    else:
-                        roll = GameLogic.roll_dice(remaining - removed)
-                        current_roll = GameLogic.calculate_score(roll)
-                        var = ''
-                        for i in range(0, len(roll)):
-                            var += f' {roll[i]}'
-                        print(f"""Rolling {remaining - removed} dice...
-***{var} ***""")
-                        print(f'You have {self.banker.shelved} unbanked points and {6 - removed} dice remaining')
-                        save = input("""Enter dice to keep, or (q)uit:
-> """)
-                        if save == 'q':
-                            self.quit_game()
-                            exit()
-                        else:
-                            tup = tuple([int(i) for i in save])
-                            score = GameLogic.calculate_score(tup)
-                            self.banker.shelf(score)
-                            removed += len(tup)
-                elif roll_again == 'b':
-                    print(f"You banked {self.banker.shelved} points in round {self.round_num}")
-                    self.banker.bank()
-                    print(f'Total score is {self.banker.balance} points')
-                    self.start_game()
-                else:
-                    self.quit_game()
-                    exit()
+    def handle_selection(self, roll):
+        while True:
+            print("Enter dice to keep, or (q)uit:")
+            response = input("> ")
+            if response == 'q':
+                self.quit_game()
+            saved_dice = self.saved_dice(roll, response)
+            tup = tuple([int(i) for i in response])
+            score = GameLogic.calculate_score(tup)
+            break
+        self.banker.shelf(score)
+        print(f'You have {self.banker.shelved} unbanked points and {len(roll) - len(saved_dice)} dice remaining')
+        return saved_dice
+    
+    def rolling_dice(self, number):
+        print(f"Rolling {number} dice...")
+        roll = self._roller(number)
+        var = ' '
+        for i in range(0, len(roll)):
+            var += f'{roll[i]} '
+        print(f"***{var}***")
+        return roll
+
+    def check_cheater(self, response, roll):
+        tup = tuple([int(i) for i in response])
+        for x in tup:
+            if x not in roll:
+                return False
+        return True
+
+    def saved_dice(self, roll, response):
+        tup = tuple([int(i) for i in response])
+        check = self.check_cheater(response, roll)
+        if check == 0:
+            print("Cheater!!! Or possibly made a typo...")
+            var = ' '
+            for i in range(0, len(roll)):
+                var += f'{roll[i]} '
+                if response == "q":
+                    sys.exit()
+            print(f"***{var}***")
+            tup = tuple([int(i) for i in response])
+            # print("Enter dice to keep, or (q)uit:")
+            # response = input("> ")
+        return tup
+
+    def farkle(self, roll):
+        score = GameLogic.calculate_score(roll)
+        if score == 0:
+            print(f"""****************************************
+**        Zilch!!! Round over         **
+****************************************""")
+            self.banker.clear_shelf()
+        # self.banker.shelved = 0
+        # self.round_num += 1
+        # self.start_round
 
 # GameLogic.calculate_score(roll)
 if __name__ == "__main__":

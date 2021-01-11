@@ -18,7 +18,7 @@ class GameLogic:
         # print(counter)
 
         if len(dice) > 6:
-            raise Exception("Please pick a number from 1-6")
+            raise Exception("Please enter a max of 6 numbers")
 
         scores = {            
             1: {'single': 100, 'mult': 1000}, 
@@ -48,6 +48,7 @@ class GameLogic:
                 score += single
         return score
 
+    @staticmethod
     def get_scorers(test_input):
         # tup = tuple([int(i) for i in test_input])
         scores_available = GameLogic.calculate_score(test_input)
