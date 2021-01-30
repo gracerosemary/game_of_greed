@@ -18,7 +18,7 @@ class GameLogic:
         # print(counter)
 
         if len(dice) > 6:
-            raise Exception("Please pick a number from 1-6")
+            raise Exception("Please enter a max of 6 numbers")
 
         scores = {            
             1: {'single': 100, 'mult': 1000}, 
@@ -49,6 +49,20 @@ class GameLogic:
         return score
 
     @staticmethod
+    def get_scorers(test_input):
+        # tup = tuple([int(i) for i in test_input])
+        scores_available = GameLogic.calculate_score(test_input)
+        if scores_available == 0:
+            return tuple()
+        list = []
+        for i in range(len(test_input)):
+            print(test_input[i])
+            if test_input[i] == 1 or test_input[i] == 5:
+                list.append(test_input[i])
+        print(list)
+        return list
+
+    @staticmethod
     def roll_dice(dice: int):
         """Rolls random dice.
         Args:
@@ -57,9 +71,9 @@ class GameLogic:
             int: roll nth number of dice and returns 1-6 random
         """
         if type(dice) is  not int:
-            raise TypeError("Dice must be a number")
+            TypeError("Dice must be a number")
         elif (dice <= 0 or dice > 6):
-            raise ValueError("Dice number must be between 1-6")
+            ValueError("Dice number must be between 1-6")
         return tuple(random.randint(1,6) for _ in range(dice))
 
 class Banker:
@@ -93,5 +107,5 @@ class Banker:
 
 
 if __name__ == "__main__":
-    glogic = GameLogic()
-    glogic.calculate_score((5, 5, 5))
+
+    GameLogic.get_scorers((1, 2))
